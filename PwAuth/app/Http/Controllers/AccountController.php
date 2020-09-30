@@ -11,6 +11,6 @@ class AccountController extends Controller
         }
 
     public function index() {
-        return view('account/dashboard')
+        return view('account/dashboard');
     }
 }

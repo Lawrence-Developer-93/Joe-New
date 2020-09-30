@@ -19,52 +19,84 @@ class PageController extends Controller
         return view('pages/home', compact('user'));
     }
 
-    public function result() {
+    public function result(Request $request) {
+        $input = $request->input('query');
+        
+        
+
+        // $user = Auth::user();
+
+        // dd($input);
+        return redirect('search/' . $input);
+        // return view('pages/results', compact('user', 'filteredData', 'input'));
+        
+    }
+
+
+    public function search(Request $request, $keyword) {
         // https://api.unsplash.com/search/photos?query=philippines&client_id=hb-UQIJ2DMaPckaJII5nxrC90uYnaVRGTMz3S8WHzJY
+        // $client = new Client();
+        // $res = $client->request('GET', 'https://api.unsplash.com/search/photos?query='.urlencode($keyword)."&client_id=".env("UNSPLASH_KEY"));
+        
+        // $search = $request->search;
+        // $input = $request->input('query');
         $client = new Client();
-        $res = $client->request('GET', 'https://api.unsplash.com/search/photos?query=philippines&client_id=hb-UQIJ2DMaPckaJII5nxrC90uYnaVRGTMz3S8WHzJY');
+        $res = $client->request('GET', "https://api.unsplash.com/search/photos", [
+            "query" => [
+                "query" => urlencode($keyword),
+                "client_id" => env("UNSPLASH_KEY"),
+                "per_page" => 100
+                ]
+            ]);
+
         $data = $res->getBody();
         
         $data = json_decode($data);
         
-        $filteredData = [];
-        
-        // return $data->results;
 
-        foreach($data->results as $result) {
-            $urls = $result->urls;
+        // Get results
+        $filteredData = $data->results;
 
-            array_push($filteredData,$result);
-
-            // foreach($urls as $key => $value) {
-            //     // var_dump($value);
-            //     if ($key === 'small') {
-            //         array_push($filteredData,$value);
-            //         // array_push($filteredData, $value)
-            //     }
-            //     // array_push($filteredData, $url['small'])
-            //     // array_push($filteredData, $url)
-            // }
-            
-            // var_dump($tags); die;
-
-            // Demby debug
-
-            // foreach ($tags as $tag) {
-            //     var_dump($tag); die;
-            // }
-
-            // // End demby
-            // if (in_array('.jpg', $tags)) {
-            //     array_push($filteredData, $result);
-            // }
-        }
-        
-        // return count($data->results);
-
-        // var_dump($filteredData); die;
+        // dd($filteredData);
 
         $user = Auth::user();
-        return view('pages/results', compact('user', 'filteredData'));
+        // return redirect('search/'.urlencode($keyword));
+        return view('pages/results', compact('user', 'filteredData', 'keyword'));
     }
+
+
+
+
+
+
+
+
+    // public function search(Request $request) {
+    //     // https://api.unsplash.com/search/photos?query=philippines&client_id=hb-UQIJ2DMaPckaJII5nxrC90uYnaVRGTMz3S8WHzJY
+    //     $input = $request->input('query');
+    //     $client = new Client();
+    //     // var_dump($input); die;
+    //     // dd($input);
+    //     // var_dump($request->input('query')); die;
+    //     $res = $client->request('GET', "https://api.unsplash.com/search/photos", [
+    //         "query" => [
+    //             "query" => $input,
+    //             "client_id" =>env("UNSPLASH_KEY"),
+    //             "per_page" => 100
+    //             ]
+    //         ]);
+
+    //     $data = $res->getBody();
+        
+    //     $data = json_decode($data);
+        
+
+    //     // Get results
+    //     $filteredData = $data->results;
+
+    //     // dd($filteredData);
+
+    //     $user = Auth::user();
+    //     return view('pages/results', compact('user', 'filteredData', 'input'));
+    // }
 }

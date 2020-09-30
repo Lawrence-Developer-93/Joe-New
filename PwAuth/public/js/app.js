@@ -49878,8 +49878,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\lawre\Desktop\PwAuth\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\lawre\Desktop\PwAuth\resources\assets\sass\main.scss */"./resources/assets/sass/main.scss");
+__webpack_require__(/*! C:\Users\lawre\Desktop\desktop folders\Joe New\PwAuth\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\lawre\Desktop\desktop folders\Joe New\PwAuth\resources\assets\sass\main.scss */"./resources/assets/sass/main.scss");
 
 
 /***/ })

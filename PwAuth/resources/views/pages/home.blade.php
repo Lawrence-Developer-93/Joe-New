@@ -10,8 +10,11 @@
             <div id="home">
                 <div class="search-area">
                     <div class="search-container">
-                        <h1>DesignStorm</h1>
-                        <input class="search" type="text" value="" placeholder="Search">
+                        <form action="/results" method="POST">
+                            @csrf
+                            <h1>DesignStorm</h1>
+                            <input class="search" type="text" placeholder="Search" name="query">
+                        </form>
                     </div>
                 </div>
             </div>
